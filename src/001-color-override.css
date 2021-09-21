@@ -1,0 +1,7 @@
+.theme-light {
+  --text-accent: #0969da !important;
+}
+
+.theme-dark {
+  --text-accent: #539bf5 !important;
+}

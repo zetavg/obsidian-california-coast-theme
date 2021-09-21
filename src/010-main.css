@@ -37,7 +37,7 @@
   --icon-muted: 0.4;
   --border-width: 1px;
   --border-width-alt: 1px;
-  --titlebar-height: 28px;
+  --titlebar-height: 24px;
   --header-width: 42px;
 
   --radius-s: 4px;
@@ -45,7 +45,7 @@
   --radius-l: 10px;
   --radius-xl: 20px;
 
-  --cursor: pointer;
+  --cursor: default;
 
   --strong-weight: var(--bold-weight);
   --strong-color: inherit;
@@ -69,6 +69,7 @@
   --foreground-rgb: var(--color-black-rgb);
   --background-rgb: var(--color-white-rgb);
 
+  --shade-95: rgba(var(--foreground-rgb), 0.95);
   --shade-90: rgba(var(--foreground-rgb), 0.9);
   --shade-80: rgba(var(--foreground-rgb), 0.8);
   --shade-70: rgba(var(--foreground-rgb), 0.7);
@@ -174,7 +175,9 @@
   --background-modifier-border-hover: var(--shade-plus-darker);
   --background-modifier-border-focus: var(--shade-plus-darker);
   --background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
+  --text-active: var(--shade-95);
   --text-normal: var(--shade-90);
+  --text-inactive: var(--shade-80);
   --text-muted: var(--shade-50);
   --text-faint: var(--shade-30);
   --background-transparent: transparent;
@@ -234,7 +237,7 @@ body.is-mobile {
   z-index: 2;
 }
 
-/* 
+/*
     ------------------------------------------------------------------
 */
 
@@ -264,7 +267,7 @@ body.is-mobile {
   padding-top: 0px;
 }
 
-/* 
+/*
     ------------------------------------------------------------------
 */
 
@@ -380,7 +383,7 @@ body:not(.hider-ribbon):not(.hider-frameless)
 
 .workspace-ribbon.mod-left {
   background: transparent;
-  padding: 0 0 0 5px;
+  padding: 0 4px 0 5px;
   position: relative;
   flex-basis: unset;
   flex-shrink: 0;
@@ -401,7 +404,7 @@ body:not(.hider-ribbon):not(.hider-frameless)
   transform: none !important;
 }
 
-/* 
+/*
       ------------------------------------------------------------------
   */
 
@@ -411,8 +414,8 @@ body:not(.hider-ribbon):not(.hider-frameless)
 .workspace-ribbon.mod-left.is-collapsed {
   border-color: transparent;
   background-color: transparent;
-  transition: border-color 0s ease-in-out 0.1s,
-    background-color 0s ease-in-out 0.2s;
+  /*transition: border-color 0s ease-in-out 0.1s,
+    background-color 0s ease-in-out 0.2s;*/
 }
 .is-right-sidedock-collapsed .workspace-split.mod-right-split {
   margin-right: 0px;
@@ -453,7 +456,7 @@ body:not(.hider-ribbon):not(.hider-frameless)
   transition: opacity 0.25s ease-in-out;
 }
 
-/* 
+/*
       ------------------------------------------------------------------
   */
 
@@ -476,9 +479,7 @@ html,
 body,
 input,
 textarea,
-button,
-.cm-s-obsidian .cm-formatting-hashtag,
-.cm-s-obsidian {
+button {
   font-size: var(--rem);
   font-family: var(--text) !important;
   font-weight: var(--normal-weight);
@@ -706,11 +707,11 @@ button,
   height: 90vh;
 }
 
-.is-mobile .modal.mod-community-theme, 
+.is-mobile .modal.mod-community-theme,
 .is-mobile .modal.mod-community-plugin,
 .is-mobile .prompt,
 .is-mobile .modal.mod-settings {
-  width: 100vw; 
+  width: 100vw;
   height: 90vh;
   max-height: calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 70px);
   max-width: none;
@@ -899,11 +900,11 @@ body.theme-dark:not(.is-translucent):not(.hider-frameless)
   padding: 0;
 }
 .workspace-split .workspace-tabs {
-  background: var(--background-primary);
+  background: var(--workspace-tabs-background);
 }
 
 .workspace-split:not(.mod-right-split) .workspace-tabs {
-  background-color: transparent;
+  background: var(--workspace-tabs-background);
   box-shadow: inset -10px 0 4px -10px rgba(0, 0, 0, 0.04);
 }
 .workspace-split.mod-root
@@ -1161,9 +1162,36 @@ body:not(.hider-frameless):not(.is-mobile).is-translucent .titlebar {
   opacity: 1;
 }
 
+.theme-light {
+  --titlebar-text: #202124;
+  --titlebar-seperator: rgba(0, 0, 0, .12);
+  --workspace-tabs-background: rgba(255, 255, 255, .32);
+}
+
+.theme-dark {
+  --titlebar-text: #b9b9b9;
+  --titlebar-seperator: rgba(0, 0, 0, .5);
+  --workspace-tabs-background: rgba(0, 0, 0, .1);
+}
+
 .titlebar-text {
-  display: none;
-  color: var(--text-faint);
+  justify-content: center;
+  align-items: center;
+  color: var(--titlebar-text);
+  letter-spacing: 0;
+  opacity: 1;
+  font-weight: 500;
+  font-size: 13px;
+  /*border-bottom: 1px solid var(--titlebar-seperator);*/
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  left: 180px;
+  right: 180px;
+  width: auto;
+  display: block;
+  margin-top: 3px;
 }
 
 .titlebar-button {
@@ -1254,12 +1282,19 @@ body:not(.hider-frameless):not(.is-mobile).is-translucent .titlebar {
   padding-left: 0;
   padding-right: 0;
   margin: 0 auto 0 auto;
+  /*
   width: var(--line-width);
   max-width: var(--max-width);
+  */
+  width: var(--line-width);
+  max-width: calc(var(--max-width) + 18px);
 }
+
+/*
 .markdown-preview-sizer {
   padding-top: 2.5rem;
 }
+*/
 
 .markdown-embed-content .markdown-preview-sizer {
   padding-top: 0;
@@ -1927,16 +1962,17 @@ body:not(.cc-folder-icons):not(.cc-file-icons) .nav-file {
   top: 0.68em;
 }
 
-.nav-file-title,
-.nav-folder-title {
+.nav-file .nav-file-title,
+.nav-folder .nav-folder-title {
   cursor: var(--cursor);
   width: 100%;
   margin: 0;
-  padding: 0 5px;
+  padding: 0 8px;
   border-radius: var(--radius-s);
   border: none;
   display: flex;
   align-items: center;
+  color: var(--text-inactive);
 }
 
 .nav-folder-title {
@@ -1948,6 +1984,7 @@ body:not(.cc-folder-icons):not(.cc-file-icons) .nav-file {
 }
 
 .nav-folder-collapse-indicator {
+  margin-left: -8px;
   margin-right: -2px;
 }
 
@@ -1959,7 +1996,7 @@ body:not(.cc-folder-icons):not(.cc-file-icons) .nav-file {
 .nav-file-title.is-active,
 body:not(.is-grabbing) .nav-file-title.is-active:hover {
   background-color: var(--shade-plus-darker);
-  color: var(--text-normal);
+  color: var(--text-active);
 }
 
 .nav-file-title-content {
@@ -1992,7 +2029,7 @@ body:not(.is-grabbing) .nav-file-title.is-active:hover {
 }
 
 .nav-folder-title-content {
-  display: flex;
+  display: block;
   align-items: center;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -2085,7 +2122,6 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 
 .outline .tree-item-self {
   cursor: var(--cursor);
-  font-size: var(--font-small);
   color: var(--text-normal);
   font-weight: 500;
   display: flex;
@@ -2098,10 +2134,24 @@ body:not(.is-grabbing) .nav-folder-title:hover {
   color: var(--text-normal);
 }
 
+/*
+.outline .tree-item .tree-item .tree-item .tree-item {
+  font-size: var(--font-smaller);
+}
+*/
+
+.outline .tree-item .collapse-icon {
+  display: none;
+}
+
+.outline .tree-item .tree-item .collapse-icon {
+  display: block;
+}
+
 .outline .tree-item-self .collapse-icon {
   position: relative;
-  top: 0.6em;
-  margin-left: 3px;
+  top: 0;
+  margin-left: -12px;
 }
 .outline > .tree-item > .tree-item-self .right-triangle {
   opacity: unset;
@@ -2113,6 +2163,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
   padding: 4px 6px;
   line-height: 1.4;
 }
+/*
 .outline .tree-item-inner::before {
   flex-shrink: 0;
   content: "●";
@@ -2126,6 +2177,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
   top: 0.8em;
   margin-right: 4px;
 }
+*/
 .outline .tree-item-inner:not(:only-child)::before {
   display: none;
 }
@@ -2136,7 +2188,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 }
 
 .outline .tree-item-children {
-  margin-left: 22px;
+  margin-left: 16px;
 }
 
 /* --------------- */
@@ -2663,7 +2715,8 @@ input.search-input:focus {
   position: absolute;
   right: 0;
   bottom: 0;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
   border-top: 1px solid var(--shade-plus-darker);
   border-left: 1px solid var(--shade-plus-darker);
   border-top-left-radius: var(--radius-m);
@@ -2676,12 +2729,18 @@ input.search-input:focus {
 }
 
 .theme-dark .status-bar {
-  background: rgb(50, 50, 50);
+  background: rgba(50, 50, 50, 0.5);
   border-color: var(--shade-3);
 }
 
 .status-bar-item {
   padding: 0 0 0 10px;
+}
+
+.status-bar-item.plugin-better-word-count,
+.status-bar-item.plugin-backlink,
+.status-bar-item.plugin-obsidian-languagetool-plugin {
+  margin-top: -2px;
 }
 
 .status-bar-item-segment {
@@ -3242,4 +3301,9 @@ body:not(.plugin-sliding-panes-rotate-header)
 .cc-no-tree-animation .tree-item-children,
 .cc-no-tree-animation .nav-folder-children {
   transition: none !important;
+}
+
+
+.tag-pane-tag-text {
+  color: var(--text-inactive);
 }

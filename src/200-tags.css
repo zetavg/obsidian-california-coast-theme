@@ -1,0 +1,32 @@
+.theme-light {
+  --tag-bg-color: #696a6c;
+  --tag-color: white;
+}
+
+.theme-dark {
+  --tag-bg-color: #7b7c7e;
+  --tag-color: black;
+}
+
+.tag:not(.token) {
+  background-color: var(--tag-bg-color);
+  border: none;
+  color: var(--tag-color);
+  font-size: 11px;
+  padding: 1px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 14px;
+}
+
+.tag:not(.token)::first-letter {
+  opacity: 0.8;
+}
+
+.tag:not(.token):hover {
+  color: white;
+  /*background-color: #7b7c7e;*/
+}
